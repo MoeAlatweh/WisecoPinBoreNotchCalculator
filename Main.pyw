@@ -166,7 +166,7 @@ ScreenManager:
             root.reset_fields()  
      
     MDLabel:
-        text: '             Version 1.0.0'
+        text: '             Version 1.0.1'
         pos_hint: {'center_x':1.32,'center_y':0.07}
         font_style: 'Caption'
         theme_text_color: "Custom"
@@ -226,30 +226,24 @@ class HomeScreen(Screen):
             # SEE WORD FILE OF THE MATH FOR MORE INFORMATION
             # WE USE (math.radians(notch_angle)) BECAUSE WE NEED USE ANGLE IN DEGREES
             Y_value_for_notch_math = float(round((float(pin_hole_diameter) / 2) *
-                                                 (math.sin(math.radians(float(notch_angle)))), 4))
+                                                 (math.sin(math.radians((180 - float(notch_angle))))), 4))
             print("Y_value_for_notch_math = " + str(Y_value_for_notch_math))
 
-            X_value_for_notch_math = float(math.sqrt(
-                round(math.pow((float(pin_hole_diameter) / 2), 2), 4) -
-                round(math.pow(float(Y_value_for_notch_math), 2), 4)))
+            X_value_for_notch_math = float(round((float(pin_hole_diameter) / 2) *
+                                                 (math.cos(math.radians((180 - float(notch_angle))))), 4))
+
             print("X_value_for_notch_math = " + str(X_value_for_notch_math))
 
             # MAKE IT global TO BE ABLE TO USE IT IN OTHER Functions
             global Y_distance_from_origin_to_circlip_notch
             Y_distance_from_origin_to_circlip_notch = format(float(Y_value_for_notch_math) + float(offset), '.4f')
-            print("Y_distance_from_origin_to_circlip_notch= " + Y_distance_from_origin_to_circlip_notch)
+            print("Y_distance_from_origin_to_circlip_notch = " + Y_distance_from_origin_to_circlip_notch)
 
             # MAKE IT global TO BE ABLE TO USE IT IN OTHER Functions
             global X_distance_from_origin_to_circlip_notch
-            if (float(notch_angle) == 90 or float(notch_angle) == 270):
-                X_distance_from_origin_to_circlip_notch = X_distance_from_origin_to_pin_center
-            elif (float(notch_angle) < 90):
-                X_distance_from_origin_to_circlip_notch = format(
-                    float(X_distance_from_origin_to_pin_center) - float(X_value_for_notch_math), '.4f')
-            elif (float(notch_angle) > 90):
-                X_distance_from_origin_to_circlip_notch = format(
-                    float(X_distance_from_origin_to_pin_center) + float(X_value_for_notch_math), '.4f')
-            print("X_distance_from_origin_to_circlip_notch =-" + X_distance_from_origin_to_circlip_notch)
+            X_distance_from_origin_to_circlip_notch = format(
+                float(X_distance_from_origin_to_pin_center) + float(X_value_for_notch_math), '.4f')
+            print("X_distance_from_origin_to_circlip_notch = -" + X_distance_from_origin_to_circlip_notch)
 
             close_button = MDRaisedButton(text='Close', on_release=self.close_home_screen_window, font_size=16)
             copy_X_value = MDRectangleFlatButton(text='Copy X-Value', theme_text_color="Custom",
