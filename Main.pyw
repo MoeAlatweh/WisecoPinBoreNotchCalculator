@@ -7,7 +7,7 @@
 # USED TO CALCULATE NOTCH LOCATION (X and Y) TO USE IT IN PIN BORE PROGRAMS.
 
 # VERSION:
-# PinBoreNotchCalculatorVersion1.0.0
+# PinBoreNotchCalculatorVersion1.0.1
 
 # LANGUAGE:
 # Python 3.7
@@ -343,7 +343,8 @@ class PinBoreNotchCalculator(MDApp):
                                      md_bg_color=[32 / 255.0, 32 / 255.0, 32 / 255.0, 1])
 
         # TO ADD PICTURE FOR THE APP FROM WEBSITE
-        app_image = AsyncImage(source='https://www.wiseco.com/Images/Downloads/Wiseco_Black_CMYK.gif', size_hint_y=None,
+        app_image = AsyncImage(source=r'https://images.squarespace-cdn.com/content/v1/5cf6a7664ba6460001928b8b/'
+                                      '1559864161158-H9K9FU00BDGENWMNCLX7/Wiseco_Black.gif', size_hint_y=None,
                                height=70, allow_stretch=True, pos_hint={'center_x': 0.5, 'center_y': 0.10},
                                color=[150 / 255.0, 0 / 255.0, 0 / 255.0, 1])
         # TO ADD app_image TO app_box_layout TO DISPLAY IT IN THE APP SCREEN
