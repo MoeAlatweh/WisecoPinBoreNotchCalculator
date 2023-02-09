@@ -7,7 +7,7 @@
 # USED TO CALCULATE NOTCH LOCATION (X and Y) TO USE IT IN PIN BORE PROGRAMS.
 
 # VERSION:
-# PinBoreNotchCalculatorVersion1.0.1
+# PinBoreNotchCalculatorVersion1.0.2
 
 # LANGUAGE:
 # Python 3.7
@@ -36,7 +36,7 @@ from kivymd.app import MDApp
 # FROM kivy.core IMPORT Window TO BE ABLE TO CONTROL APP WINDOW SIZE.
 from kivy.core.window import Window
 # FROM kivy.uix.image IMPORT (AsyncImage) IF NEED TO USE IMAGE FROM WEBSITE , USE (Image) IF PHOTO ON LOCAL COMPUTER
-from kivy.uix.image import AsyncImage
+from kivy.uix.image import AsyncImage, Image
 # FROM kivy.lang IMPORT Builder THAT'S A METHOD TO CREATE THE TEXT INPUT (KV Part)
 from kivy.lang.builder import Builder
 # FROM kivy.uix.screenmanager IMPORT ScreenManager, and Screen TO CREATE APP SCREEN AND MANEGE THEM
@@ -166,7 +166,7 @@ ScreenManager:
             root.reset_fields()  
      
     MDLabel:
-        text: '             Version 1.0.1'
+        text: '             Version 1.0.2'
         pos_hint: {'center_x':1.32,'center_y':0.07}
         font_style: 'Caption'
         theme_text_color: "Custom"
@@ -343,10 +343,9 @@ class PinBoreNotchCalculator(MDApp):
                                      md_bg_color=[32 / 255.0, 32 / 255.0, 32 / 255.0, 1])
 
         # TO ADD PICTURE FOR THE APP FROM WEBSITE
-        app_image = AsyncImage(source=r'https://images.squarespace-cdn.com/content/v1/5cf6a7664ba6460001928b8b/'
-                                      '1559864161158-H9K9FU00BDGENWMNCLX7/Wiseco_Black.gif', size_hint_y=None,
-                               height=70, allow_stretch=True, pos_hint={'center_x': 0.5, 'center_y': 0.10},
-                               color=[150 / 255.0, 0 / 255.0, 0 / 255.0, 1])
+        app_image = Image(source=r'H:\CNC_Programming\WisecoApplications\WisecoApplicationsLogo/Wiseco.gif',
+                          size_hint_y=None, height=70, allow_stretch=True, pos_hint={'center_x': 0.5, 'center_y': 0.10},
+                          color=[150 / 255.0, 0 / 255.0, 0 / 255.0, 1])
         # TO ADD app_image TO app_box_layout TO DISPLAY IT IN THE APP SCREEN
         app_box_layout.add_widget(app_image)
 
