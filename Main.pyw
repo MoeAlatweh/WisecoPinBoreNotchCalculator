@@ -217,6 +217,7 @@ class HomeScreen(Screen):
         if (pilot_bore_depth != "" and pin_hole_diameter != "" and pilot_to_pin != "" and notch_angle != "" and
                 offset != ""):
             print("Start Calculation")
+            global X_distance_from_origin_to_pin_center
             X_distance_from_origin_to_pin_center = format(float(pilot_bore_depth) - abs(float(pilot_to_pin)) -
                                                           (float(pin_hole_diameter) / 2), '.4f')
             print("X_distance_from_origin_to_pin_center = " + X_distance_from_origin_to_pin_center)
@@ -246,6 +247,9 @@ class HomeScreen(Screen):
             print("X_distance_from_origin_to_circlip_notch = -" + X_distance_from_origin_to_circlip_notch)
 
             close_button = MDRaisedButton(text='Close', on_release=self.close_home_screen_window, font_size=16)
+            copy_X_pin_value = MDRectangleFlatButton(text='Copy X_Pin_Center-Value', theme_text_color="Custom",
+                                                     text_color=(0, 1, 0, 1),
+                                                     on_release=self.copy_x_pin_center_distance, font_size=16)
             copy_X_value = MDRectangleFlatButton(text='Copy X-Value', theme_text_color="Custom",
                                                  text_color=(1, 1, 0, 1), on_release=self.copy_x_distance, font_size=16)
             copy_Y_value = MDRectangleFlatButton(text='Copy Y-Value', theme_text_color="Custom",
@@ -253,11 +257,14 @@ class HomeScreen(Screen):
                                                  on_release=self.copy_y_distance, font_size=16)
 
             self.home_screen_message_window = MDDialog(title='[color=248f24]Success Message[/color]', text=(
+                '[color=ffffff]X-Distance From Origin to Pin Center = [/color]' +
+                '[b][i][color=33cc33]-' + X_distance_from_origin_to_pin_center + '[/color][/i][/b]' + '\n' +
                 '[color=ffffff]X-Distance From Origin to Circlip Notch = [/color]' +
                 '[b][i][color=ffff00]-' + X_distance_from_origin_to_circlip_notch + '[/color][/i][/b]' + '\n' +
                 '[color=ffffff]Y-Distance From Origin to Circlip Notch = [/color]' +
                 '[b][i][color=0099ff]' + Y_distance_from_origin_to_circlip_notch + '[/color][/i][/b]'),
-                        size_hint=(0.7, 1.0), buttons=[copy_X_value, copy_Y_value, close_button], auto_dismiss=False)
+                        size_hint=(0.7, 1.0), buttons=[copy_X_pin_value, copy_X_value, copy_Y_value, close_button],
+                        auto_dismiss=False)
             # TO OPEN THE DIALOG WINDOW
             self.home_screen_message_window.open()
 
@@ -277,6 +284,12 @@ class HomeScreen(Screen):
             self.ids["PilotToPin"].focus = True
             self.ids["NotchAngle"].focus = True
             self.ids["Offset"].focus = True
+
+    # TO Copy X_Pin_Center-Value
+    # WE HAVE "-" AS TEXT BECAUSE THIS VALUE ALWAYS WILL BE NEGATIVE (i.e: BELOW THE ORIGIN POINT)
+    def copy_x_pin_center_distance(self, obj):
+        Clipboard.copy("-" + X_distance_from_origin_to_pin_center)
+        print("Copy X_Pin_Center-Value=-" + X_distance_from_origin_to_pin_center)
 
     # TO COPY X-VALUE
     # WE HAVE "-" AS TEXT BECAUSE THIS VALUE ALWAYS WILL BE NEGATIVE (i.e: BELOW THE ORIGIN POINT)
